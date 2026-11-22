@@ -152,24 +152,36 @@ class _RequestFormPageState extends State<RequestFormPage> {
             FormField<String>(
               initialValue: _priority,
               validator: (value) => value == null ? 'اولویت را انتخاب کنید' : null,
-              builder: (field) => InputDecorator(
-                decoration: InputDecoration(
-                  labelText: 'اولویت',
-                  errorText: field.errorText,
-                ),
-                child: Wrap(
-                  spacing: 8,
-                  runSpacing: 4,
-                  children: _priorities.map((priority) {
-                    return RequestPriorityChip(
-                      label: priority,
-                      isSelected: _priority == priority,
-                      onTap: () {
-                        setState(() => _priority = priority);
-                        field.didChange(priority);
-                      },
-                    );
-                  }).toList(),
+              builder: (field) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('اولویت', style: Theme.of(context).textTheme.labelLarge),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
+                    children: _priorities.map((priority) {
+                      return RequestPriorityChip(
+                        label: priority,
+                        isSelected: _priority == priority,
+                        onTap: () {
+                          setState(() => _priority = priority);
+                          field.didChange(priority);
+                        },
+                      );
+                    }).toList(),
+                  ),
+                  if (field.errorText != null) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      field.errorText!,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ],
                 ),
               ),
             ),
