@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:citizen_request/models/citizen_request.dart';
+import 'package:citizen_request/widgets/request_priority_chip.dart';
 
 class RequestFormPage extends StatefulWidget {
   const RequestFormPage({super.key, this.request});
@@ -160,11 +161,10 @@ class _RequestFormPageState extends State<RequestFormPage> {
                   spacing: 8,
                   runSpacing: 4,
                   children: _priorities.map((priority) {
-                    return ChoiceChip(
-                      label: Text(priority),
-                      selected: _priority == priority,
-                      onSelected: (selected) {
-                        if (!selected) return;
+                    return RequestPriorityChip(
+                      label: priority,
+                      isSelected: _priority == priority,
+                      onTap: () {
                         setState(() => _priority = priority);
                         field.didChange(priority);
                       },
