@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       );
                     },
-                    leading: const Icon(Icons.assignment_outlined),
+                    leading: const Icon(Icons.assignment_outlined, size: 45,),
                     title: Text(request.title),
                     subtitle: Padding(
                       padding: const EdgeInsets.only(top: 8),

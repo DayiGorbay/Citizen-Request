@@ -148,16 +148,30 @@ class _RequestFormPageState extends State<RequestFormPage> {
 
             const SizedBox(height: 16),
 
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                labelText: 'اولویت',
-                border: OutlineInputBorder(),
-              ),
-              items: _priorities
-                  .map((item) => DropdownMenuItem(value: item, child: Text(item)))
-                  .toList(),
-              onChanged: (value) => setState(() => _priority = value),
+            FormField<String>(
+              initialValue: _priority,
               validator: (value) => value == null ? 'اولویت را انتخاب کنید' : null,
+              builder: (field) => InputDecorator(
+                decoration: InputDecoration(
+                  labelText: 'اولویت',
+                  errorText: field.errorText,
+                ),
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  children: _priorities.map((priority) {
+                    return ChoiceChip(
+                      label: Text(priority),
+                      selected: _priority == priority,
+                      onSelected: (selected) {
+                        if (!selected) return;
+                        setState(() => _priority = priority);
+                        field.didChange(priority);
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
             ),
 
             const SizedBox(height: 24),
