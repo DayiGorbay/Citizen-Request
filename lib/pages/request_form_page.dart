@@ -182,7 +182,6 @@ class _RequestFormPageState extends State<RequestFormPage> {
                     ),
                   ],
                 ],
-                ),
               ),
             ),
 
